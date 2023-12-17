@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { notFound } from 'next/navigation'
 
 export const dynamicParams = true
 
@@ -9,6 +9,7 @@ export async function generateStaticParams() {
 }
 
 async function getTicket(id) {
+  await new Promise((resolve) => setTimeout(resolve, 3000))
   const res = await fetch('http://localhost:4000/tickets/' + id, {
     next: {
       revalidate: 60,
@@ -16,7 +17,7 @@ async function getTicket(id) {
   })
 
   if (!res.ok) {
-   notFound()
+    notFound()
   }
   return res.json()
 }
